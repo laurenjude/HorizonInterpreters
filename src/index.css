@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-light text-text font-sans antialiased;
+}
+
+/* Premium polish animations and micro-interactions */
+
+/* Globe */
+.globe-rotate {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: globe-rotate 30s linear infinite;
+}
+
+@keyframes globe-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Speech bubbles gently pulse in size, suggesting active conversation */
+.bubble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bubble-pulse 3s ease-in-out infinite;
+}
+.bubble.b1 {
+  animation-delay: 0s;
+}
+.bubble.b2 {
+  animation-delay: 0.7s;
+}
+.bubble.b3 {
+  animation-delay: 1.4s;
+}
+.bubble.b4 {
+  animation-delay: 0.35s;
+}
+
+@keyframes bubble-pulse {
+  0%,
+  100% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* The bubble that used to sit too high and glitch (its position now lives on
+   a separate, un-animated wrapper <g> so this transform can't clobber it):
+   a smooth, self-contained float replaces the old jerky motion. */
+.bubble.bubble-fixed {
+  animation: bubble-float-fix 3s ease-in-out infinite;
+}
+
+@keyframes bubble-float-fix {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Subtle radial glow behind the globe */
+.hero-glow {
+  opacity: 0.05;
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.03;
+  }
+  50% {
+    opacity: 0.07;
+  }
+}
+
+/* Connection arcs draw themselves in once, then stay visible */
+.arc-line {
+  fill: none;
+  stroke: #4a9e8e;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0.55;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: arc-draw 2s ease-out forwards;
+}
+.arc-line.arc1 {
+  animation-delay: 0.3s;
+}
+.arc-line.arc2 {
+  animation-delay: 1s;
+}
+.arc-line.arc3 {
+  animation-delay: 1.7s;
+}
+
+@keyframes arc-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Connection pulse */
+.pulse {
+  animation: pulse-opacity 2s ease-in-out infinite;
+}
+@keyframes pulse-opacity {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Orbiting dots: each orbit runs as a lead dot plus two trailing echoes on the
+   same path, staggered 0.5s apart with falling opacity, so they read as a
+   faint comet trail circling the globe. */
+.orbit {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.orbit.dot1-a,
+.orbit.dot1-b,
+.orbit.dot1-c {
+  animation: orbit-1 15s linear infinite;
+}
+.orbit.dot2-a,
+.orbit.dot2-b,
+.orbit.dot2-c {
+  animation: orbit-2 20s linear infinite;
+}
+.orbit.dot3-a,
+.orbit.dot3-b,
+.orbit.dot3-c {
+  animation: orbit-3 25s linear infinite;
+}
+.orbit.dot4-a,
+.orbit.dot4-b,
+.orbit.dot4-c {
+  animation: orbit-4 22s linear infinite;
+}
+
+.orbit.dot1-b,
+.orbit.dot2-b,
+.orbit.dot3-b,
+.orbit.dot4-b {
+  animation-delay: 0.5s;
+}
+.orbit.dot1-c,
+.orbit.dot2-c,
+.orbit.dot3-c,
+.orbit.dot4-c {
+  animation-delay: 1s;
+}
+
+@keyframes orbit-1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-2 {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+@keyframes orbit-3 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-4 {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Keep the animation light on small screens: drop from 4 orbiting dots to 2 */
+@media (max-width: 767px) {
+  .orbit-extra {
+    display: none;
+  }
+}
+
+/* Headline depth */
+.hero-title {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Nav link underline */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4a9e8e, transparent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 220ms ease;
+}
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* Section separators: subtle teal gradient line between sections */
+section + section::before {
+  content: "";
+  display: block;
+  height: 2px;
+  margin: 0 auto;
+  max-width: 90%;
+  background: linear-gradient(
+    90deg,
+    rgba(74, 158, 142, 0) 0%,
+    rgba(74, 158, 142, 0.95) 50%,
+    rgba(74, 158, 142, 0) 100%
+  );
+  opacity: 0.12;
+}
+
+/* Language pill hover */
+.language-pill {
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.language-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(10, 20, 22, 0.06);
+}
+
+/* Draw line for HowItWorks */
+.draw-line path {
+  stroke: #4a9e8e;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 900ms ease;
+}
+.draw-line.drawn path {
+  stroke-dashoffset: 0;
+}
+
+/* Buttons tactile feedback */
+a,
+button {
+  transition:
+    transform 80ms ease,
+    box-shadow 120ms ease;
+}
+a:active,
+button:active {
+  transform: scale(0.98);
+}
+
+/* Inputs focus transition */
+input,
+select,
+textarea {
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Footer powered link glow */
+.powered-link {
+  transition: text-shadow 180ms ease;
+}
+.powered-link:hover {
+  text-shadow: 0 4px 18px rgba(74, 158, 142, 0.18);
+}
+
+/* CTA pulse (3 iterations) */
+.cta-pulse {
+  animation: cta-pulse 1s ease-in-out 3;
+}
+@keyframes cta-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 158, 142, 0.12);
+  }
+  50% {
+    box-shadow: 0 6px 22px -6px rgba(74, 158, 142, 0.22);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 158, 142, 0);
+  }
+}
