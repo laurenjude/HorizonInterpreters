@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const LANGUAGE_PAIRS = [
   { service: "SERVICES", people: "People" },
   { service: "HUDUMA", people: "Watu" },
-  { service: "SERVICES", people: "Des Personnes" },
+  { service: "SERVICES", people: "Personnes" },
   { service: "SERIVISI", people: "Abantu" },
   { service: "DIENSTEN", people: "Mensen" },
   { service: "IBIKORWA", people: "Abantu" },
@@ -23,9 +23,12 @@ export const DynamicHeroText = () => {
 
   return (
     <div>
-      <div className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-[#4a9e8e] uppercase mb-3">
-        <span>PROFESSIONAL INTERPRETING</span>
-        <div className="relative inline-block h-5 overflow-hidden min-w-[80px] md:min-w-[100px]">
+      <div className="text-xs font-bold tracking-wider text-[#4a9e8e] uppercase mb-3">
+        <span>PROFESSIONAL INTERPRETING</span>{" "}
+        <div
+          className="relative inline-block overflow-hidden align-middle"
+          style={{ width: "110px", height: "16px" }}
+        >
           <AnimatePresence mode="wait">
             <motion.span
               key={LANGUAGE_PAIRS[index].service}
@@ -33,7 +36,8 @@ export const DynamicHeroText = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 15, opacity: 0 }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="absolute left-0 top-0 block"
+              className="absolute left-0 top-0 block leading-none"
+              style={{ fontSize: "inherit" }}
             >
               {LANGUAGE_PAIRS[index].service}
             </motion.span>
