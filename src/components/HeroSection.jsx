@@ -1,16 +1,5 @@
 import { Scale, Heart, Building, Briefcase } from "lucide-react";
-
-const EYEBROW_WORDS = [
-  "SERVICES",
-  "SWAHILI",
-  "KINYARWANDA",
-  "KIRUNDI",
-  "LUGANDA",
-  "FRENCH",
-  "DUTCH",
-];
-
-const HEADLINE_WORDS = ["People", "Communities", "Cultures", "Families", "Voices"];
+import DynamicHeroText from "./DynamicHeroText";
 
 const TRUST_BADGES = [
   { icon: Scale, label: "Legal & Immigration" },
@@ -382,27 +371,6 @@ function GlobeIllustration() {
   );
 }
 
-function WordRotator({ words, sizerWord, wordClassName }) {
-  return (
-    <span className="word-rotator">
-      <span className="sr-only">{words[0]}</span>
-      <span className="word-rotator-sizer" aria-hidden="true">
-        {sizerWord}
-      </span>
-      <span aria-hidden="true">
-        {words.map((word, i) => (
-          <span
-            key={word}
-            className={`rotate-word ${wordClassName}`}
-            style={{ animationDelay: `${i * 3}s` }}>
-            {word}
-          </span>
-        ))}
-      </span>
-    </span>
-  );
-}
-
 export default function HeroSection() {
   const scrollTo = (e, href) => {
     e.preventDefault();
@@ -415,27 +383,7 @@ export default function HeroSection() {
       className="min-h-screen flex items-center bg-light pt-28 pb-16 lg:pt-24">
       <div className="hero-card max-w-7xl mx-auto px-6 grid lg:grid-cols-[55%_45%] gap-12 items-center w-full rounded-2xl">
         <div>
-          <p className="hero-anim hero-anim-eyebrow text-teal font-semibold text-sm uppercase tracking-wide mb-4">
-            Professional Interpreting{" "}
-            <WordRotator
-              words={EYEBROW_WORDS}
-              sizerWord="KINYARWANDA"
-              wordClassName="eyebrow-word"
-            />
-          </p>
-          <h1 className="hero-anim hero-anim-headline hero-title font-heading font-bold text-[30px] lg:text-[44px] leading-tight mb-6">
-            <span className="text-navy">Bridging Languages,</span>
-            <br />
-            <span className="text-teal">
-              Connecting{" "}
-              <WordRotator
-                words={HEADLINE_WORDS}
-                sizerWord="Communities"
-                wordClassName="headline-word"
-              />
-              .
-            </span>
-          </h1>
+          <DynamicHeroText />
           <p className="hero-anim hero-anim-subtitle text-text-light text-base leading-relaxed mb-8 max-w-xl">
             Horizon Interpreters provides professional telephone, video, and
             face-to-face interpreting across 47 languages. Specialising in East

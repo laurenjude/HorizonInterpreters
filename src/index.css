@@ -38,80 +38,6 @@ body {
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
 }
 
-/* Rotating word carousels (hero eyebrow + headline). The sizer span stays in
-   normal flow (invisible) so the box is sized correctly for line-height and
-   the longest word in the set; the real words stack on top of it absolutely
-   positioned, so cycling never shifts surrounding layout. */
-.word-rotator {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-}
-.word-rotator-sizer {
-  visibility: hidden;
-  white-space: nowrap;
-}
-.rotate-word {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  white-space: nowrap;
-  transform: translateY(100%);
-}
-.eyebrow-word {
-  animation: eyebrow-word-cycle 21s ease-in-out infinite;
-}
-.headline-word {
-  animation: headline-word-cycle 15s ease-in-out infinite;
-}
-
-@keyframes eyebrow-word-cycle {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  2.4% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  11.9% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  14.29% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes headline-word-cycle {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  3.33% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  16.67% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-}
-
 /* Trust bar badges */
 .trust-badge {
   background: #f0f0f0;
@@ -157,14 +83,6 @@ body {
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
-.hero-anim-eyebrow {
-  animation-name: hero-fade-in;
-  animation-delay: 0s;
-}
-.hero-anim-headline {
-  animation-name: hero-slide-up;
-  animation-delay: 0.2s;
-}
 .hero-anim-subtitle {
   animation-name: hero-fade-in;
   animation-delay: 0.4s;
@@ -188,16 +106,6 @@ body {
   }
   to {
     opacity: 1;
-  }
-}
-@keyframes hero-slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 @keyframes hero-scale-in {
