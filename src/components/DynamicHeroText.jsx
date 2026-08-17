@@ -44,7 +44,10 @@ export const DynamicHeroText = () => {
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0f1923] leading-tight">
         Bridging Languages,<br />
         Connecting{" "}
-        <span className="relative inline-block text-[#4a9e8e] min-w-[180px] md:min-w-[280px]">
+        <span
+          className="relative inline-block text-[#4a9e8e] align-bottom min-w-[180px] md:min-w-[280px]"
+          style={{ height: "1.15em", display: "inline-block" }}
+        >
           <AnimatePresence mode="wait">
             <motion.span
               key={LANGUAGE_PAIRS[index].people}
