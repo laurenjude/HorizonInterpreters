@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -12,10 +16,24 @@ body {
 
 /* Premium polish animations and micro-interactions */
 
-/* Globe */
+/* Hero SVG container: pinned in place, only its contents animate */
+.hero-illustration {
+  position: relative;
+  overflow: hidden;
+}
+.hero-svg {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Globe. Rotation pivots on a fixed point in the SVG's own coordinate space
+   (view-box) rather than each element's fill-box center — fill-box centers
+   are computed per-element and can drift off the true globe center, which is
+   what caused the whole illustration to appear to sweep left/right. */
 .globe-rotate {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
+  transform-box: view-box;
+  transform-origin: 230px 230px;
   animation: globe-rotate 30s linear infinite;
 }
 

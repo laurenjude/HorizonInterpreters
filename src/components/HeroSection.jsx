@@ -5,7 +5,7 @@ function GlobeIllustration() {
     <div className="hero-illustration relative w-full max-w-md mx-auto overflow-hidden">
       <svg
         viewBox="0 0 460 460"
-        className="w-full h-auto"
+        className="hero-svg h-auto"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true">
