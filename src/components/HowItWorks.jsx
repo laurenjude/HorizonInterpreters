@@ -5,18 +5,21 @@ import { useEffect, useRef } from "react";
 const STEPS = [
   {
     icon: Calendar,
+    iconClass: "icon-rotate",
     title: "Submit a Booking",
     description:
       "Fill our online form with the language you need, the date and time, and whether you need telephone, video, or face-to-face interpreting.",
   },
   {
     icon: CheckCircle,
+    iconClass: "icon-pulse-scale",
     title: "We Confirm Your Interpreter",
     description:
       "We match you with a qualified interpreter and send confirmation with all the details. For telephone interpreting, connection is often within minutes.",
   },
   {
     icon: MessageCircle,
+    iconClass: "icon-bounce",
     title: "The Session Takes Place",
     description:
       "Your interpreter joins the call, video, or meeting. Afterwards you receive documentation and an invoice. Simple.",
@@ -73,7 +76,7 @@ export default function HowItWorks() {
                 <div className="relative flex flex-col items-center text-center">
                   <div className="relative z-10 w-16 h-16 rounded-full bg-teal flex items-center justify-center mb-6 border-4 border-white shadow-sm">
                     <Icon
-                      className="text-white"
+                      className={`text-white ${step.iconClass}`}
                       size={28}
                     />
                   </div>

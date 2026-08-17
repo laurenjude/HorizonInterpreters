@@ -72,9 +72,9 @@ export default function PricingSection() {
               key={plan.name}
               delay={i * 100}>
               <div
-                className={`bg-white rounded-xl border p-8 h-full flex flex-col relative ${
+                className={`pricing-card bg-white rounded-xl border p-8 h-full flex flex-col relative ${
                   plan.highlighted
-                    ? "border-teal border-t-4 shadow-lg md:scale-105"
+                    ? "border-teal border-t-4 shadow-lg"
                     : "border-border shadow-sm"
                 }`}>
                 {plan.name === "Video" && (

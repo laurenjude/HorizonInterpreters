@@ -1,4 +1,23 @@
-import ScrollFadeIn from "./ScrollFadeIn";
+import { Scale, Heart, Building, Briefcase } from "lucide-react";
+
+const EYEBROW_WORDS = [
+  "SERVICES",
+  "SWAHILI",
+  "KINYARWANDA",
+  "KIRUNDI",
+  "LUGANDA",
+  "FRENCH",
+  "DUTCH",
+];
+
+const HEADLINE_WORDS = ["People", "Communities", "Cultures", "Families", "Voices"];
+
+const TRUST_BADGES = [
+  { icon: Scale, label: "Legal & Immigration" },
+  { icon: Heart, label: "NHS & Healthcare" },
+  { icon: Building, label: "Local Councils" },
+  { icon: Briefcase, label: "Corporate" },
+];
 
 function GlobeIllustration() {
   return (
@@ -112,28 +131,28 @@ function GlobeIllustration() {
         />
 
         <circle
-          className="pulse"
+          className="pulse-dot node-1"
           cx="90"
           cy="120"
           r="5"
           fill="#4a9e8e"
         />
         <circle
-          className="pulse"
+          className="pulse-dot node-2"
           cx="370"
           cy="100"
           r="5"
           fill="#4a9e8e"
         />
         <circle
-          className="pulse"
+          className="pulse-dot node-3"
           cx="380"
           cy="330"
           r="5"
           fill="#4a9e8e"
         />
         <circle
-          className="pulse"
+          className="pulse-dot node-4"
           cx="70"
           cy="340"
           r="5"
@@ -143,155 +162,161 @@ function GlobeIllustration() {
         {/* Speech bubbles: position set on the outer <g>, animation on the inner <g>
             so the CSS transform animation never clobbers the SVG position attribute */}
         <g transform="translate(58, 60)">
-          <g className="bubble b1">
-            <rect
-              x="0"
-              y="0"
-              width="56"
-              height="38"
-              rx="10"
-              fill="#ffffff"
-              stroke="#4a9e8e"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M14 38 L14 48 L26 38 Z"
-              fill="#ffffff"
-              stroke="#4a9e8e"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-            <line
-              x1="12"
-              y1="14"
-              x2="44"
-              y2="14"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <line
-              x1="12"
-              y1="24"
-              x2="34"
-              y2="24"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+          <g className="bubble-hover">
+            <g className="bubble b1">
+              <rect
+                x="0"
+                y="0"
+                width="56"
+                height="38"
+                rx="10"
+                fill="#ffffff"
+                stroke="#4a9e8e"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M14 38 L14 48 L26 38 Z"
+                fill="#ffffff"
+                stroke="#4a9e8e"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <line
+                x1="12"
+                y1="14"
+                x2="44"
+                y2="14"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <line
+                x1="12"
+                y1="24"
+                x2="34"
+                y2="24"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </g>
           </g>
         </g>
 
-        {/* Previously mispositioned bubble: moved down so it sits fully inside the
-            globe area instead of crowding the top edge, and given a smooth,
-            self-contained float instead of the jerky clipped motion it had before */}
+        {/* Sits fully inside the globe area rather than crowding the top edge */}
         <g transform="translate(300, 95)">
-          <g className="bubble b2 bubble-fixed">
-            <rect
-              x="0"
-              y="0"
-              width="56"
-              height="38"
-              rx="10"
-              fill="#0f1923"
-            />
-            <path
-              d="M14 38 L14 48 L26 38 Z"
-              fill="#0f1923"
-            />
-            <line
-              x1="12"
-              y1="14"
-              x2="44"
-              y2="14"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <line
-              x1="12"
-              y1="24"
-              x2="34"
-              y2="24"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+          <g className="bubble-hover">
+            <g className="bubble b2">
+              <rect
+                x="0"
+                y="0"
+                width="56"
+                height="38"
+                rx="10"
+                fill="#0f1923"
+              />
+              <path
+                d="M14 38 L14 48 L26 38 Z"
+                fill="#0f1923"
+              />
+              <line
+                x1="12"
+                y1="14"
+                x2="44"
+                y2="14"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <line
+                x1="12"
+                y1="24"
+                x2="34"
+                y2="24"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </g>
           </g>
         </g>
 
         <g transform="translate(336, 288)">
-          <g className="bubble b3">
-            <rect
-              x="0"
-              y="0"
-              width="56"
-              height="38"
-              rx="10"
-              fill="#ffffff"
-              stroke="#4a9e8e"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M14 38 L14 48 L26 38 Z"
-              fill="#ffffff"
-              stroke="#4a9e8e"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-            <line
-              x1="12"
-              y1="14"
-              x2="44"
-              y2="14"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <line
-              x1="12"
-              y1="24"
-              x2="34"
-              y2="24"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+          <g className="bubble-hover">
+            <g className="bubble b3">
+              <rect
+                x="0"
+                y="0"
+                width="56"
+                height="38"
+                rx="10"
+                fill="#ffffff"
+                stroke="#4a9e8e"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M14 38 L14 48 L26 38 Z"
+                fill="#ffffff"
+                stroke="#4a9e8e"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <line
+                x1="12"
+                y1="14"
+                x2="44"
+                y2="14"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <line
+                x1="12"
+                y1="24"
+                x2="34"
+                y2="24"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </g>
           </g>
         </g>
 
         <g transform="translate(28, 292)">
-          <g className="bubble b4">
-            <rect
-              x="0"
-              y="0"
-              width="56"
-              height="38"
-              rx="10"
-              fill="#0f1923"
-            />
-            <path
-              d="M14 38 L14 48 L26 38 Z"
-              fill="#0f1923"
-            />
-            <line
-              x1="12"
-              y1="14"
-              x2="44"
-              y2="14"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <line
-              x1="12"
-              y1="24"
-              x2="34"
-              y2="24"
-              stroke="#4a9e8e"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+          <g className="bubble-hover">
+            <g className="bubble b4">
+              <rect
+                x="0"
+                y="0"
+                width="56"
+                height="38"
+                rx="10"
+                fill="#0f1923"
+              />
+              <path
+                d="M14 38 L14 48 L26 38 Z"
+                fill="#0f1923"
+              />
+              <line
+                x1="12"
+                y1="14"
+                x2="44"
+                y2="14"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <line
+                x1="12"
+                y1="24"
+                x2="34"
+                y2="24"
+                stroke="#4a9e8e"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </g>
           </g>
         </g>
 
@@ -357,6 +382,27 @@ function GlobeIllustration() {
   );
 }
 
+function WordRotator({ words, sizerWord, wordClassName }) {
+  return (
+    <span className="word-rotator">
+      <span className="sr-only">{words[0]}</span>
+      <span className="word-rotator-sizer" aria-hidden="true">
+        {sizerWord}
+      </span>
+      <span aria-hidden="true">
+        {words.map((word, i) => (
+          <span
+            key={word}
+            className={`rotate-word ${wordClassName}`}
+            style={{ animationDelay: `${i * 3}s` }}>
+            {word}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
 export default function HeroSection() {
   const scrollTo = (e, href) => {
     e.preventDefault();
@@ -367,44 +413,66 @@ export default function HeroSection() {
     <section
       id="top"
       className="min-h-screen flex items-center bg-light pt-28 pb-16 lg:pt-24">
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[55%_45%] gap-12 items-center w-full">
-        <ScrollFadeIn>
-          <p className="text-teal font-semibold text-sm uppercase tracking-wide mb-4">
-            Professional Interpreting Services
+      <div className="hero-card max-w-7xl mx-auto px-6 grid lg:grid-cols-[55%_45%] gap-12 items-center w-full rounded-2xl">
+        <div>
+          <p className="hero-anim hero-anim-eyebrow text-teal font-semibold text-sm uppercase tracking-wide mb-4">
+            Professional Interpreting{" "}
+            <WordRotator
+              words={EYEBROW_WORDS}
+              sizerWord="KINYARWANDA"
+              wordClassName="eyebrow-word"
+            />
           </p>
-          <h1 className="hero-title font-heading font-bold text-navy text-[30px] lg:text-[44px] leading-tight mb-6">
-            Bridging Languages,
+          <h1 className="hero-anim hero-anim-headline hero-title font-heading font-bold text-[30px] lg:text-[44px] leading-tight mb-6">
+            <span className="text-navy">Bridging Languages,</span>
             <br />
-            Connecting People.
+            <span className="text-teal">
+              Connecting{" "}
+              <WordRotator
+                words={HEADLINE_WORDS}
+                sizerWord="Communities"
+                wordClassName="headline-word"
+              />
+              .
+            </span>
           </h1>
-          <p className="text-text-light text-base leading-relaxed mb-8 max-w-xl">
+          <p className="hero-anim hero-anim-subtitle text-text-light text-base leading-relaxed mb-8 max-w-xl">
             Horizon Interpreters provides professional telephone, video, and
             face-to-face interpreting across 47 languages. Specialising in East
             and Central African languages with UK-wide coverage.
           </p>
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="hero-anim hero-anim-buttons flex flex-wrap gap-4 mb-6">
             <a
               href="#contact"
               onClick={(e) => scrollTo(e, "#contact")}
-              className="bg-teal hover:bg-teal-dark text-white font-semibold px-7 py-3.5 rounded-lg transition-colors">
+              className="btn-primary-hero text-white font-semibold px-7 py-3.5 rounded-lg">
               Book an Interpreter
+              <span className="btn-arrow" aria-hidden="true">
+                →
+              </span>
             </a>
             <a
               href="#services"
               onClick={(e) => scrollTo(e, "#services")}
-              className="border-2 border-teal text-teal hover:bg-teal-light font-semibold px-7 py-3.5 rounded-lg transition-colors">
+              className="btn-secondary-hero border-2 border-teal text-teal font-semibold px-7 py-3.5 rounded-lg">
               View Our Services
             </a>
           </div>
-          <p className="text-text-light text-xs">
-            Trusted by solicitors, healthcare providers, and public sector
-            organisations
-          </p>
-        </ScrollFadeIn>
+          <div className="hero-anim hero-anim-trust flex flex-wrap gap-3">
+            {TRUST_BADGES.map(({ icon: Icon, label }) => (
+              <span
+                key={label}
+                className="trust-badge inline-flex items-center gap-1.5">
+                <Icon size={12} className="text-teal" />
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
 
-        <ScrollFadeIn delay={150}>
+        <div className="hero-anim hero-anim-graphic">
           <GlobeIllustration />
-        </ScrollFadeIn>
+        </div>
       </div>
     </section>
   );

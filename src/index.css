@@ -20,11 +20,195 @@ body {
 .hero-illustration {
   position: relative;
   overflow: hidden;
+  background: radial-gradient(
+    circle at 60% 50%,
+    #e8f4f1 0%,
+    #f8faf9 60%,
+    transparent 80%
+  );
 }
 .hero-svg {
   display: block;
   width: 100%;
   margin: 0 auto;
+}
+
+/* Floating card effect for the whole hero content area */
+.hero-card {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+}
+
+/* Rotating word carousels (hero eyebrow + headline). The sizer span stays in
+   normal flow (invisible) so the box is sized correctly for line-height and
+   the longest word in the set; the real words stack on top of it absolutely
+   positioned, so cycling never shifts surrounding layout. */
+.word-rotator {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.word-rotator-sizer {
+  visibility: hidden;
+  white-space: nowrap;
+}
+.rotate-word {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transform: translateY(100%);
+}
+.eyebrow-word {
+  animation: eyebrow-word-cycle 21s ease-in-out infinite;
+}
+.headline-word {
+  animation: headline-word-cycle 15s ease-in-out infinite;
+}
+
+@keyframes eyebrow-word-cycle {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  2.4% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  11.9% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  14.29% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes headline-word-cycle {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  3.33% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  16.67% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+/* Trust bar badges */
+.trust-badge {
+  background: #f0f0f0;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 11px;
+  color: #4b5563;
+}
+
+/* Hero buttons */
+.btn-primary-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #4a9e8e;
+  transition:
+    background-color 250ms ease,
+    box-shadow 250ms ease;
+}
+.btn-primary-hero:hover {
+  background: #3d8b7d;
+  box-shadow: 0 10px 20px -5px rgba(74, 158, 142, 0.4);
+}
+.btn-primary-hero .btn-arrow {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+.btn-primary-hero:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-secondary-hero {
+  transition: background-color 200ms ease;
+}
+.btn-secondary-hero:hover {
+  background-color: rgba(74, 158, 142, 0.08);
+}
+
+/* Hero page-load stagger */
+.hero-anim {
+  opacity: 0;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+.hero-anim-eyebrow {
+  animation-name: hero-fade-in;
+  animation-delay: 0s;
+}
+.hero-anim-headline {
+  animation-name: hero-slide-up;
+  animation-delay: 0.2s;
+}
+.hero-anim-subtitle {
+  animation-name: hero-fade-in;
+  animation-delay: 0.4s;
+}
+.hero-anim-buttons {
+  animation-name: hero-fade-in;
+  animation-delay: 0.6s;
+}
+.hero-anim-trust {
+  animation-name: hero-fade-in;
+  animation-delay: 0.8s;
+}
+.hero-anim-graphic {
+  animation-name: hero-scale-in;
+  animation-delay: 0.3s;
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes hero-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hero-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Globe. Rotation pivots on a fixed point in the SVG's own coordinate space
@@ -46,50 +230,49 @@ body {
   }
 }
 
-/* Speech bubbles gently pulse in size, suggesting active conversation */
+/* Speech bubbles float gently, suggesting active conversation. Position lives
+   on a separate, un-animated wrapper <g> so this transform can't clobber it. */
 .bubble {
   transform-box: fill-box;
   transform-origin: center;
-  animation: bubble-pulse 3s ease-in-out infinite;
+  animation: bubble-float 3.5s ease-in-out infinite;
 }
 .bubble.b1 {
   animation-delay: 0s;
 }
 .bubble.b2 {
-  animation-delay: 0.7s;
+  animation-delay: 0.8s;
 }
 .bubble.b3 {
-  animation-delay: 1.4s;
+  animation-delay: 1.6s;
 }
 .bubble.b4 {
-  animation-delay: 0.35s;
+  animation-delay: 2.4s;
 }
 
-@keyframes bubble-pulse {
-  0%,
-  100% {
-    transform: scale(0.95);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* The bubble that used to sit too high and glitch (its position now lives on
-   a separate, un-animated wrapper <g> so this transform can't clobber it):
-   a smooth, self-contained float replaces the old jerky motion. */
-.bubble.bubble-fixed {
-  animation: bubble-float-fix 3s ease-in-out infinite;
-}
-
-@keyframes bubble-float-fix {
+@keyframes bubble-float {
   0%,
   100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(5px);
+    transform: translateY(6px);
   }
+}
+
+/* Hover: scale up with a soft teal glow. Lives on its own wrapper <g> (not
+   the one running the float animation) so the two transforms don't fight
+   over the same property on the same element — they compose instead. */
+.bubble-hover {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform 200ms ease,
+    filter 200ms ease;
+}
+.bubble-hover:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 4px 10px rgba(74, 158, 142, 0.3));
 }
 
 /* Subtle radial glow behind the globe */
@@ -148,6 +331,38 @@ body {
   }
   100% {
     opacity: 0.3;
+  }
+}
+
+/* Central connection nodes: opacity pulse (above) plus a staggered scale
+   pulse so each dot reads as an independent, "alive" point on the network */
+.pulse-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    pulse-opacity 2s ease-in-out infinite,
+    dot-scale-pulse 2s ease-in-out infinite;
+}
+.pulse-dot.node-1 {
+  animation-delay: 0s;
+}
+.pulse-dot.node-2 {
+  animation-delay: 0.5s;
+}
+.pulse-dot.node-3 {
+  animation-delay: 1s;
+}
+.pulse-dot.node-4 {
+  animation-delay: 1.5s;
+}
+
+@keyframes dot-scale-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
   }
 }
 
@@ -293,10 +508,60 @@ section + section::before {
   stroke-linejoin: round;
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  transition: stroke-dashoffset 900ms ease;
+  transition: stroke-dashoffset 1.5s ease;
 }
 .draw-line.drawn path {
   stroke-dashoffset: 0;
+}
+
+/* How It Works step icons: subtle continuous motion so each step feels alive */
+.icon-rotate {
+  animation: icon-rotate 3s ease-in-out infinite;
+}
+@keyframes icon-rotate {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+.icon-pulse-scale {
+  animation: icon-pulse-scale 2s ease-in-out infinite;
+}
+@keyframes icon-pulse-scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+.icon-bounce {
+  animation: icon-bounce 2s ease-in-out infinite;
+}
+@keyframes icon-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Pricing cards: all three lift equally on hover; the middle card's teal top
+   border + badge remain the only static "most popular" distinction */
+.pricing-card {
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -12px rgba(15, 25, 35, 0.18);
 }
 
 /* Buttons tactile feedback */
