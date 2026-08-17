@@ -11,7 +11,23 @@ const LANGUAGE_PAIRS = [
   { service: "SERVICES", people: "Communities" },
 ];
 
-export const DynamicHeroText = () => {
+const RotatingWord = ({ word, className = "" }) => (
+  <AnimatePresence mode="wait">
+    <motion.span
+      key={word}
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -20, opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className={className}
+      style={{ display: "inline-block" }}
+    >
+      {word}
+    </motion.span>
+  </AnimatePresence>
+);
+
+const DynamicHeroText = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -23,47 +39,17 @@ export const DynamicHeroText = () => {
 
   return (
     <div>
-      <div className="text-xs font-bold tracking-wider text-[#4a9e8e] uppercase mb-3">
-        <span>PROFESSIONAL INTERPRETING</span>{" "}
-        <div
-          className="relative inline-block overflow-hidden align-middle"
-          style={{ width: "110px", height: "16px" }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={LANGUAGE_PAIRS[index].service}
-              initial={{ y: -15, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 15, opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="absolute left-0 top-0 block leading-none"
-              style={{ fontSize: "inherit" }}
-            >
-              {LANGUAGE_PAIRS[index].service}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-      </div>
+      <p className="text-xs font-bold tracking-wider uppercase mb-3 text-[#4a9e8e]">
+        PROFESSIONAL INTERPRETING{" "}
+        <RotatingWord word={LANGUAGE_PAIRS[index].service} />
+      </p>
 
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0f1923] leading-tight">
-        Bridging Languages,<br />
+        Bridging Languages,
+        <br />
         Connecting{" "}
-        <span
-          className="relative inline-block text-[#4a9e8e] align-bottom min-w-[180px] md:min-w-[280px]"
-          style={{ height: "1.15em", display: "inline-block" }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={LANGUAGE_PAIRS[index].people}
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 20, opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="absolute left-0 top-0 block"
-            >
-              {LANGUAGE_PAIRS[index].people}.
-            </motion.span>
-          </AnimatePresence>
+        <span className="text-[#4a9e8e]">
+          <RotatingWord word={LANGUAGE_PAIRS[index].people + "."} />
         </span>
       </h1>
     </div>
