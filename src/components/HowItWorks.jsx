@@ -58,14 +58,11 @@ export default function HowItWorks() {
         </ScrollFadeIn>
 
         <div className="relative grid md:grid-cols-3 gap-12 md:gap-8">
-          <svg
+          <div
             ref={lineRef}
-            className="hidden md:block absolute top-8 left-[16.66%] right-[16.66%] h-0.5 draw-line"
-            viewBox="0 0 100 2"
-            preserveAspectRatio="none"
-            aria-hidden="true">
-            <path d="M0 1 H100" />
-          </svg>
+            className="how-line hidden md:block absolute top-8"
+            aria-hidden="true"
+          />
 
           {STEPS.map((step, i) => {
             const Icon = step.icon;

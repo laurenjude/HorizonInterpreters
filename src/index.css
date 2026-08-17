@@ -408,18 +408,24 @@ section + section::before {
   box-shadow: 0 6px 14px rgba(10, 20, 22, 0.06);
 }
 
-/* Draw line for HowItWorks */
-.draw-line path {
-  stroke: #4a9e8e;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  transition: stroke-dashoffset 1.5s ease;
+/* Connecting line between How It Works steps: spans from the center of the
+   first icon to the center of the last icon. The old version positioned its
+   endpoints with plain percentages (16.66%/16.66%), which ignores the grid's
+   gap-8 gutter and lands short of the icon centers — that's what made it
+   look like it only reached partway. Centering an icon in a 3-column grid
+   with a fixed gap requires mixing % and px, hence the calc(). Draws
+   left-to-right once the section scrolls into view (see the "drawn" class
+   toggled by IntersectionObserver in HowItWorks.jsx). */
+.how-line {
+  left: calc(16.6667% - 10.6667px);
+  height: 2px;
+  background: #4a9e8e;
+  z-index: 0;
+  width: 0;
+  transition: width 1.5s ease-out;
 }
-.draw-line.drawn path {
-  stroke-dashoffset: 0;
+.how-line.drawn {
+  width: calc(66.6667% + 21.3333px);
 }
 
 /* How It Works step icons: subtle continuous motion so each step feels alive */
