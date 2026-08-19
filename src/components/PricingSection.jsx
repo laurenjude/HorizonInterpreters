@@ -1,152 +1,173 @@
-import { Check, Scale } from "lucide-react";
-import ScrollFadeIn from "./ScrollFadeIn";
+import { Check, Scale } from 'lucide-react'
+import ScrollFadeIn from './ScrollFadeIn'
+import SectionHeading from './SectionHeading'
+import MagneticButton from './MagneticButton'
+import useCountUp from '../hooks/useCountUp'
 
 const PLANS = [
   {
-    name: "Telephone",
-    price: "£0.55",
-    unit: "per minute",
+    name: 'Telephone',
+    amount: 0.55,
+    decimals: 2,
+    unit: 'per minute',
     features: [
-      "All 47 languages available",
-      "10-minute minimum",
-      "Standard rate: £0.65/min",
-      "Introductory: £0.55/min (first 100 mins)",
-      "Instant connection",
+      'All 47 languages available',
+      '10 minute minimum',
+      'Standard rate £0.65/min',
+      'Introductory £0.55/min for first 100 mins',
+      'Instant connection',
     ],
-    cta: "primary-outline",
     highlighted: false,
   },
   {
-    name: "Video",
-    price: "£1.10",
-    unit: "per minute",
+    name: 'Video',
+    amount: 1.1,
+    decimals: 2,
+    unit: 'per minute',
     features: [
-      "All 47 languages available",
-      "10-minute minimum",
-      "Via Microsoft Teams",
-      "Visual communication",
-      "Screen sharing available",
+      'All 47 languages available',
+      '10 minute minimum',
+      'Via Microsoft Teams',
+      'Visual communication',
+      'Screen sharing available',
     ],
-    cta: "primary-solid",
     highlighted: true,
   },
   {
-    name: "Face-to-Face",
-    price: "£40",
-    unit: "per hour",
+    name: 'Face to Face',
+    amount: 40,
+    decimals: 0,
+    unit: 'per hour',
     features: [
-      "Cardiff, Newport, Bristol, Swansea",
-      "London & Birmingham available",
-      "1-hour minimum",
-      "Travel: 45p/mile or train fare",
-      "Court, medical, business settings",
+      'Cardiff, Newport, Bristol, Swansea',
+      'London and Birmingham available',
+      '1 hour minimum',
+      'Travel at 45p per mile or train fare',
+      'Court, medical, business settings',
     ],
-    cta: "primary-outline",
     highlighted: false,
   },
-];
+]
 
-export default function PricingSection() {
-  const scrollToContact = (e) => {
-    e.preventDefault();
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+function PlanCard({ plan }) {
+  const [priceRef, price] = useCountUp(plan.amount, { decimals: plan.decimals })
+
+  if (plan.highlighted) {
+    // contrast, not just a teal border, is what makes "most popular" read premium
+    return (
+      <div className="card-lift relative overflow-hidden rounded-card bg-navy px-[clamp(1.5rem,2.8vw,2rem)] pt-[clamp(2.25rem,4vw,2.75rem)] pb-[clamp(1.875rem,3.4vw,2.375rem)] shadow-feature">
+        <div
+          className="absolute -top-40 left-1/2 -translate-x-1/2 w-[26.25rem] h-80 animate-glow pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(74,158,142,.4), transparent 68%)' }}
+          aria-hidden="true"
+        />
+        <span className="absolute top-4 right-4 rounded-full bg-teal px-3.5 py-[7px] font-heading text-[0.656rem] font-semibold tracking-[0.12em] text-[#04211B]">
+          MOST POPULAR
+        </span>
+
+        <p className="relative font-heading text-xl font-semibold text-white mb-5">{plan.name}</p>
+        <p className="relative text-[0.813rem] uppercase tracking-[0.08em] text-[#7C8F98]">From</p>
+        <p className="relative font-heading text-price font-bold text-teal-bright mt-1.5 mb-0.5">
+          £<span ref={priceRef}>{price}</span>
+        </p>
+        <p className="relative text-[0.906rem] text-[#9AA9B1] mb-6">{plan.unit}</p>
+        <div className="relative h-px bg-white/10 mb-6" />
+
+        <ul className="relative m-0 mb-7 p-0 list-none grid gap-3">
+          {plan.features.map((feature) => (
+            <li key={feature} className="flex items-start gap-2.5 text-[0.938rem] text-[#D3DDE2]">
+              <Check size={16} className="text-teal mt-0.5 shrink-0" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        <MagneticButton
+          href="#contact"
+          sheenClass="sheen sheen--bright"
+          className="relative w-full bg-teal py-4 text-[0.969rem] text-[#04211B] hover:bg-teal-bright"
+        >
+          Book Now
+        </MagneticButton>
+      </div>
+    )
+  }
 
   return (
-    <section
-      id="pricing"
-      className="bg-white py-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <ScrollFadeIn className="text-center mb-16">
-          <h2 className="font-heading font-bold text-navy text-3xl lg:text-4xl uppercase mb-3">
-            Transparent Pricing
-          </h2>
-          <p className="text-text-light text-base">
-            Clear rates with no hidden fees
-          </p>
-        </ScrollFadeIn>
+    <div className="card-lift rounded-card bg-white border border-border px-[clamp(1.5rem,2.8vw,2rem)] py-[clamp(1.875rem,3.4vw,2.375rem)]">
+      <p className="font-heading text-xl font-semibold text-navy mb-5">{plan.name}</p>
+      <p className="text-[0.813rem] uppercase tracking-[0.08em] text-text-muted">From</p>
+      <p className="font-heading text-price font-bold text-teal-dark mt-1.5 mb-0.5">
+        £<span ref={priceRef}>{price}</span>
+      </p>
+      <p className="text-[0.906rem] text-text-light mb-6">{plan.unit}</p>
+      <div className="h-px bg-border-soft mb-6" />
 
-        <div className="grid md:grid-cols-3 gap-8 items-start mb-14">
+      <ul className="m-0 mb-7 p-0 list-none grid gap-3">
+        {plan.features.map((feature) => (
+          <li key={feature} className="flex items-start gap-2.5 text-[0.938rem] text-[#3E4E58]">
+            <Check size={16} className="text-teal mt-0.5 shrink-0" />
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href="#contact"
+        className="block rounded-xl border-[1.5px] border-teal py-[0.9375rem] text-center font-heading text-[0.969rem] font-semibold text-teal-dark transition-colors duration-[220ms] hover:bg-teal-light"
+      >
+        Book Now
+      </a>
+    </div>
+  )
+}
+
+export default function PricingSection() {
+  return (
+    <section id="pricing" className="py-section bg-light-alt">
+      <div className="container-x">
+        <SectionHeading
+          number="04"
+          label="Pricing"
+          title="Transparent pricing"
+          aside="Clear rates with no hidden fees."
+          align="center"
+        />
+
+        <div className="auto-grid items-start mb-[clamp(2.5rem,5vw,3.5rem)]">
           {PLANS.map((plan, i) => (
-            <ScrollFadeIn
-              key={plan.name}
-              delay={i * 100}>
-              <div
-                className={`pricing-card bg-white rounded-xl border p-8 h-full flex flex-col relative ${
-                  plan.highlighted
-                    ? "border-teal border-t-4 shadow-lg"
-                    : "border-border shadow-sm"
-                }`}>
-                {plan.name === "Video" && (
-                  <div className="absolute -top-3 right-4 bg-teal text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    Most Popular
-                  </div>
-                )}
-                <h3 className="font-heading font-bold text-navy text-xl mb-4">
-                  {plan.name}
-                </h3>
-                <p className="text-text-light text-xs mb-1">From</p>
-                <p className="text-teal font-heading font-bold text-4xl mb-1">
-                  {plan.price}
-                </p>
-                <p className="text-text-light text-sm mb-6">{plan.unit}</p>
-                <hr className="border-border mb-6" />
-                <ul className="space-y-3 mb-8 flex-1">
-                  {plan.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2 text-sm text-text">
-                      <Check
-                        size={16}
-                        className="text-teal mt-0.5 flex-shrink-0"
-                      />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  onClick={scrollToContact}
-                  className={`text-center font-semibold px-6 py-3 rounded-lg transition-colors ${
-                    plan.cta === "primary-solid"
-                      ? "bg-teal hover:bg-teal-dark text-white"
-                      : "border-2 border-teal text-teal hover:bg-teal-light"
-                  }`}>
-                  Book Now
-                </a>
-              </div>
+            <ScrollFadeIn key={plan.name} delay={i * 90} className="h-full">
+              <PlanCard plan={plan} />
             </ScrollFadeIn>
           ))}
         </div>
 
+        {/* the bundle is the most commercially specific thing on the page, so it gets
+            its own full width band rather than sitting as a fourth card */}
         <ScrollFadeIn>
-          <div className="bg-teal-light border border-teal rounded-xl p-6 lg:p-8 flex flex-col lg:flex-row items-start lg:items-center gap-6">
-            <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-              <Scale
-                className="text-teal"
-                size={26}
-              />
+          <div className="rounded-card bg-white border border-[#DCE9E5] p-[clamp(1.5rem,3vw,2.25rem)] flex flex-wrap items-center gap-[clamp(1.25rem,3vw,2rem)]">
+            <div className="grid place-items-center w-14 h-14 shrink-0 rounded-2xl bg-teal-light">
+              <Scale className="text-teal-mid" size={26} strokeWidth={1.8} />
             </div>
-            <div className="flex-1">
-              <h3 className="font-heading font-bold text-navy text-lg mb-2">
+            <div className="flex-[1_1_20rem] min-w-0">
+              <p className="font-heading text-[1.125rem] font-semibold text-navy mb-2">
                 Asylum &amp; Immigration Bundle
-              </h3>
-              <p className="text-text-light text-sm leading-relaxed">
-                120 telephone minutes for £72 (£0.60/min). Valid for one month.
-                Includes free written confirmation email after every call for
-                your Legal Aid file. Designed specifically for solicitors
-                handling asylum and immigration cases.
+              </p>
+              <p className="text-[0.938rem] leading-[1.65] text-text-light text-pretty">
+                120 telephone minutes for £72, which works out at £0.60 per minute, valid for one
+                month. Includes a free written confirmation email after every call for your Legal
+                Aid file. Designed for solicitors handling asylum and immigration cases.
               </p>
             </div>
-            <a
+            <MagneticButton
               href="#contact"
-              onClick={scrollToContact}
-              className="bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap">
+              className="bg-teal-mid text-white px-6 py-[0.9375rem] text-[0.938rem] whitespace-nowrap shadow-[0_14px_30px_-14px_rgba(31,92,82,.6)] hover:bg-teal-dark"
+            >
               Enquire About This Bundle
-            </a>
+            </MagneticButton>
           </div>
         </ScrollFadeIn>
       </div>
     </section>
-  );
+  )
 }

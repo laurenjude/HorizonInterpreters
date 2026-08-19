@@ -1,0 +1,267 @@
+/* Layers on top of index.css. Nothing here removes or overrides the hero SVG
+   animations, so the globe, orbits, bubbles and arc draw-ins keep working. */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap');
+
+/* ---------- base ---------- */
+
+html {
+  /* clears the fixed navbar when an anchor link lands */
+  scroll-padding-top: 96px;
+}
+
+::selection {
+  background: rgba(74, 158, 142, 0.22);
+}
+
+/* brand focus ring instead of the browser default */
+:focus-visible {
+  outline: 2px solid #4a9e8e;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* iOS zooms any input under 16px on focus */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* ---------- layout ---------- */
+
+.container-x {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(1.125rem, 4vw, 2.5rem);
+}
+
+/* card grids that reflow on their own, no breakpoint variants */
+.auto-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.auto-grid-sm {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.auto-grid-stat {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+/* ---------- premium card: gradient hairline + cursor spotlight ---------- */
+
+.card-premium {
+  position: relative;
+  padding: 1px;
+  border-radius: 1.375rem;
+  background: linear-gradient(160deg, #e9f1ee, #f1f5f4);
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms ease,
+    background 320ms ease;
+}
+.card-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.375rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms ease;
+  /* --mx / --my are set from JS in PremiumCard */
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(74, 158, 142, 0.75),
+    transparent 68%
+  );
+}
+.card-premium__body {
+  position: relative;
+  height: 100%;
+  border-radius: 1.3125rem;
+  background: #fff;
+}
+
+@media (hover: hover) {
+  .card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 32px 60px -30px rgba(14, 26, 34, 0.35);
+    background: linear-gradient(160deg, rgba(74, 158, 142, 0.55), rgba(74, 158, 142, 0.12));
+  }
+  .card-premium:hover::before {
+    opacity: 1;
+  }
+}
+
+/* plain lift for cards that are not on the hairline treatment */
+.card-lift {
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms ease;
+}
+@media (hover: hover) {
+  .card-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 32px 60px -30px rgba(14, 26, 34, 0.35);
+  }
+}
+
+/* ---------- button light sweep ---------- */
+
+.sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.3) 50%, transparent 65%);
+  background-size: 220% 100%;
+  background-position: -220% 0;
+}
+.sheen--bright {
+  background-image: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+}
+@media (hover: hover) {
+  .group:hover .sheen {
+    animation: shimmer 900ms ease-out;
+  }
+}
+
+/* ---------- language marquee ---------- */
+
+.marquee-mask {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.6875rem;
+  padding-block: 0.3125rem;
+}
+@media (hover: hover) {
+  .marquee-mask:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ---------- process connector ---------- */
+
+.process-line {
+  position: absolute;
+  top: 1.75rem;
+  left: 16.6667%;
+  right: 16.6667%;
+  height: 1.5px;
+  background: #e0ebe7;
+  overflow: hidden;
+}
+.process-line__fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #4a9e8e, #2f7a6d);
+  transition: width 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.process-line.drawn .process-line__fill {
+  width: 100%;
+}
+/* the line would point at nothing once the steps stack */
+@media (max-width: 899px) {
+  .process-line {
+    display: none;
+  }
+}
+
+/* ---------- dark form fields with floating labels ---------- */
+
+.field {
+  position: relative;
+  display: block;
+}
+.field__input {
+  width: 100%;
+  padding: 1.375rem 1rem 0.625rem;
+  border-radius: 0.75rem;
+  background: #0e1a22;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.field__input:focus {
+  border-color: #4a9e8e;
+  box-shadow: 0 0 0 4px rgba(74, 158, 142, 0.14);
+}
+.field__label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 0.938rem;
+  color: #8a98a0;
+  pointer-events: none;
+  transform-origin: left top;
+  transition:
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 200ms ease;
+}
+/* rises when focused or when the field has content */
+.field__input:focus + .field__label,
+.field__input:not(:placeholder-shown) + .field__label {
+  transform: translateY(-9px) scale(0.74);
+}
+.field__input:focus + .field__label {
+  color: #4a9e8e;
+}
+
+.select-dark {
+  width: 100%;
+  padding: 1.125rem 1rem;
+  border-radius: 0.75rem;
+  background: #0e1a22;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #c6d2d8;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.select-dark:focus {
+  border-color: #4a9e8e;
+  box-shadow: 0 0 0 4px rgba(74, 158, 142, 0.14);
+}
+
+/* ---------- misc ---------- */
+
+.text-pretty {
+  text-wrap: pretty;
+}
+.text-balance {
+  text-wrap: balance;
+}
+
+.grid-ghost {
+  background-image:
+    linear-gradient(rgba(14, 26, 34, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 26, 34, 0.028) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

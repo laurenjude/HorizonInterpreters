@@ -1,126 +1,124 @@
-import { useEffect, useState, useRef } from "react";
-import { Menu, X } from "lucide-react";
-import BridgeLogo from "./BridgeLogo";
-import useScrollPosition from "../hooks/useScrollPosition";
+import { useEffect, useState } from 'react'
+import { Menu, X, ArrowRight } from 'lucide-react'
+import BridgeLogo from './BridgeLogo'
+import MagneticButton from './MagneticButton'
+import useScrollPosition from '../hooks/useScrollPosition'
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Languages", href: "#languages" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+  { label: 'Services', href: '#services' },
+  { label: 'Languages', href: '#languages' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+]
 
 export default function Navbar() {
-  const scrolled = useScrollPosition(20);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const scrolled = useScrollPosition(24)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const ctaRef = useRef(null);
-
-  useEffect(() => {
-    // Pulse CTA 3 times on load
-    const el = ctaRef.current;
-    if (el) {
-      el.classList.add("cta-pulse");
-      setTimeout(() => el.classList.remove("cta-pulse"), 3500);
+      document.body.style.overflow = ''
     }
+  }, [menuOpen])
 
-    // Observe sections and toggle active nav link
-    const sections = NAV_LINKS.map((l) =>
-      document.querySelector(l.href),
-    ).filter(Boolean);
-    const obs = new IntersectionObserver(
+  // active link driven by state rather than by toggling classes on DOM nodes
+  useEffect(() => {
+    const sections = NAV_LINKS.map((l) => document.querySelector(l.href)).filter(Boolean)
+    if (!sections.length) return
+
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const id = `#${entry.target.id}`;
-          const link = document.querySelector(`a[href="${id}"]`);
-          if (link) {
-            link.classList.toggle("active", entry.isIntersecting);
-          }
-        });
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
+        })
       },
-      { root: null, rootMargin: "0px 0px -45% 0px", threshold: 0.1 },
-    );
-    sections.forEach((s) => obs.observe(s));
-    return () => obs.disconnect();
-  }, []);
+      { rootMargin: '-20% 0px -45% 0px', threshold: 0.05 }
+    )
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-white shadow-md py-3" : "bg-transparent py-5"
-        }`}>
-        <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <a
-            href="#top"
-            onClick={(e) => handleNavClick(e, "#top")}>
+        className={`fixed top-0.5 left-0 right-0 z-[110] backdrop-blur-[14px] backdrop-saturate-[180%] border-b transition-all duration-[320ms] ease-premium ${
+          scrolled
+            ? 'py-[11px] bg-light/90 border-border shadow-nav'
+            : 'py-[18px] bg-light/[.74] border-transparent'
+        }`}
+      >
+        <nav className="container-x flex items-center justify-between gap-6">
+          <a href="#top" className="shrink-0" aria-label="Horizon Interpreters, home">
             <BridgeLogo size="small" />
           </a>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="nav-link text-sm font-medium text-navy hover:text-teal transition-colors">
+                className={`rounded-[9px] px-3.5 py-2.5 text-[0.906rem] font-medium transition-colors duration-[180ms] ${
+                  active === link.href
+                    ? 'text-navy bg-teal/10'
+                    : 'text-[#3A4A54] hover:text-navy hover:bg-teal/[.08]'
+                }`}
+              >
                 {link.label}
               </a>
             ))}
           </div>
 
-          <div className="hidden lg:block">
-            <a
-              href="#contact"
-              ref={ctaRef}
-              onClick={(e) => handleNavClick(e, "#contact")}
-              className="inline-block bg-teal hover:bg-teal-dark text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
-              Book an Interpreter
-            </a>
-          </div>
+          <MagneticButton
+            href="#contact"
+            strength={4}
+            className="hidden lg:inline-flex bg-teal-mid text-white px-[1.3125rem] py-[0.8125rem] text-[0.875rem] whitespace-nowrap shadow-[0_10px_24px_-12px_rgba(31,92,82,.55)] hover:bg-teal-dark"
+          >
+            Book an Interpreter
+            <ArrowRight size={15} className="transition-transform duration-[240ms] ease-premium group-hover:translate-x-1" />
+          </MagneticButton>
 
           <button
-            className="lg:hidden text-navy"
-            aria-label="Toggle menu"
-            onClick={() => setMenuOpen((v) => !v)}>
-            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+            type="button"
+            className="lg:hidden grid place-items-center w-[2.875rem] h-[2.875rem] shrink-0 rounded-xl border border-[#DCE7E3] bg-white text-navy"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
       </header>
 
+      {/* light panel rather than a full navy takeover: less jarring, stays on brand */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-navy flex flex-col items-center justify-center gap-8 lg:hidden">
-          {NAV_LINKS.map((link) => (
+        <div className="fixed inset-0 z-[105] bg-light lg:hidden pt-28 px-gutter">
+          <div className="grid gap-0.5">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="rounded-xl px-3.5 py-4 font-heading text-[1.0625rem] font-medium text-navy hover:bg-teal/[.08]"
+              >
+                {link.label}
+              </a>
+            ))}
             <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="text-white text-2xl font-heading font-semibold uppercase tracking-wide hover:text-teal transition-colors">
-              {link.label}
+              href="#contact"
+              onClick={() => setMenuOpen(false)}
+              className="mt-2.5 rounded-xl bg-teal-mid px-4 py-[1.0625rem] text-center font-heading font-semibold text-white"
+            >
+              Book an Interpreter
             </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "#contact")}
-            className="mt-4 inline-block bg-teal hover:bg-teal-dark text-white font-semibold px-8 py-3 rounded-lg transition-colors">
-            Book an Interpreter
-          </a>
+            <a href="tel:08001234567" className="px-4 py-4 text-center text-[0.938rem] text-text-light">
+              or call 0800 123 4567
+            </a>
+          </div>
         </div>
       )}
     </>
-  );
+  )
 }

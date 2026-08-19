@@ -76,10 +76,14 @@ body {
   background-color: rgba(74, 158, 142, 0.08);
 }
 
-/* Hero page-load stagger */
+/* Hero page-load stagger. Elements that use only "hero-anim" (no delay
+   modifier below) still need an animation-name or they stay stuck at
+   opacity:0 forever — give the base class a default so it always resolves. */
 .hero-anim {
   opacity: 0;
+  animation-name: hero-fade-in;
   animation-duration: 0.6s;
+  animation-delay: 0s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }

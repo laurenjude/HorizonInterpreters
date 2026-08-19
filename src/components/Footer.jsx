@@ -1,46 +1,44 @@
-import { Mail, Phone, MapPin } from "lucide-react";
-import BridgeLogo from "./BridgeLogo";
+import { Mail, Phone, MapPin } from 'lucide-react'
+import BridgeLogo from './BridgeLogo'
 
 const QUICK_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Languages", href: "#languages" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+  { label: 'Services', href: '#services' },
+  { label: 'Languages', href: '#languages' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+]
+
+const CONTACT = [
+  { icon: Mail, value: 'info@horizoninterpreters.co.uk', href: 'mailto:info@horizoninterpreters.co.uk' },
+  { icon: Phone, value: '0800 123 4567', href: 'tel:08001234567' },
+  { icon: MapPin, value: 'United Kingdom, nationwide' },
+]
 
 export default function Footer() {
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <footer className="bg-navy-dark">
-      <div className="h-0.5 bg-teal" />
+      <div className="h-0.5 bg-gradient-to-r from-teal-deep via-teal to-teal-deep" />
 
-      <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-12">
+      <div
+        className="container-x py-[clamp(2.75rem,6vw,4rem)] grid gap-[clamp(2rem,4vw,3rem)]"
+        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}
+      >
         <div>
-          <BridgeLogo
-            size="medium"
-            dark
-          />
-          <p className="text-gray-400 text-sm mt-4">
-            Professional interpreting across 47 languages
+          <BridgeLogo size="medium" dark />
+          <p className="mt-4 text-[0.875rem] leading-relaxed text-[#8A98A0] max-w-[16rem]">
+            Professional interpreting across 47 languages, with UK wide coverage.
           </p>
         </div>
 
         <div>
-          <h4 className="text-white font-heading font-semibold uppercase text-sm tracking-wide mb-5">
-            Quick Links
-          </h4>
-          <ul className="space-y-3">
+          <p className="font-heading text-[0.719rem] font-semibold uppercase tracking-[0.18em] text-white mb-5">
+            Quick links
+          </p>
+          <ul className="m-0 p-0 list-none grid gap-3">
             {QUICK_LINKS.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-gray-400 text-sm hover:text-teal transition-colors">
+                <a href={link.href} className="text-[0.875rem] text-[#8A98A0] transition-colors hover:text-teal">
                   {link.label}
                 </a>
               </li>
@@ -49,47 +47,39 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-white font-heading font-semibold uppercase text-sm tracking-wide mb-5">
+          <p className="font-heading text-[0.719rem] font-semibold uppercase tracking-[0.18em] text-white mb-5">
             Contact
-          </h4>
-          <ul className="space-y-3 mb-6">
-            <li className="flex items-center gap-2 text-gray-400 text-sm">
-              <Mail
-                size={16}
-                className="text-teal flex-shrink-0"
-              />
-              info@horizoninterpreters.co.uk
-            </li>
-            <li className="flex items-center gap-2 text-gray-400 text-sm">
-              <Phone
-                size={16}
-                className="text-teal flex-shrink-0"
-              />
-              0800 123 4567
-            </li>
-            <li className="flex items-center gap-2 text-gray-400 text-sm">
-              <MapPin
-                size={16}
-                className="text-teal flex-shrink-0"
-              />
-              United Kingdom:Nationwide
-            </li>
+          </p>
+          <ul className="m-0 p-0 list-none grid gap-3 mb-6">
+            {CONTACT.map(({ icon: Icon, value, href }) => (
+              <li key={value} className="flex items-start gap-2.5 text-[0.875rem] text-[#8A98A0]">
+                <Icon size={16} className="text-teal shrink-0 mt-0.5" />
+                {href ? (
+                  <a href={href} className="text-[#8A98A0] transition-colors hover:text-teal break-words">
+                    {value}
+                  </a>
+                ) : (
+                  <span className="break-words">{value}</span>
+                )}
+              </li>
+            ))}
           </ul>
           <a
             href="https://automationprimeafrica.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="powered-link text-teal text-xs hover:underline">
+            className="text-[0.75rem] text-teal transition-colors hover:text-teal-bright"
+          >
             Powered by Automation Prime Africa
           </a>
         </div>
       </div>
 
       <div className="border-t border-white/10 py-6">
-        <p className="text-gray-500 text-xs text-center">
+        <p className="text-center text-[0.75rem] text-[#5F6F7A]">
           © 2026 Horizon Interpreters LTD. All rights reserved.
         </p>
       </div>
     </footer>
-  );
+  )
 }
