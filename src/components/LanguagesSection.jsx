@@ -7,18 +7,24 @@ const half = Math.ceil(additionalLanguages.length / 2)
 const rowA = additionalLanguages.slice(0, half)
 const rowB = additionalLanguages.slice(half)
 
+function selectLanguage(language) {
+  window.dispatchEvent(new CustomEvent('prefill-booking', { detail: { language } }))
+}
+
 function MarqueeRow({ items, animation }) {
   // doubled so the -50% loop is seamless
   const doubled = [...items, ...items]
   return (
     <div className={`marquee-track ${animation}`}>
       {doubled.map((lang, i) => (
-        <span
+        <button
+          type="button"
           key={`${lang}-${i}`}
-          className="whitespace-nowrap rounded-full bg-white border border-[#DDEAE6] px-[1.1875rem] py-2.5 text-[0.906rem] text-[#4A5A64]"
+          onClick={() => selectLanguage(lang)}
+          className="whitespace-nowrap rounded-full bg-white border border-[#DDEAE6] px-[1.1875rem] py-2.5 text-[0.906rem] text-[#4A5A64] cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:border-teal hover:text-teal-dark active:scale-95"
         >
           {lang}
-        </span>
+        </button>
       ))}
     </div>
   )
@@ -53,12 +59,14 @@ export default function LanguagesSection() {
 
         <ScrollFadeIn className="flex flex-wrap justify-center gap-3 mb-[clamp(2.5rem,6vw,3.75rem)]">
           {specialistLanguages.map((lang) => (
-            <span
+            <button
+              type="button"
               key={lang}
-              className="rounded-full bg-white border-[1.5px] border-teal px-[clamp(1.25rem,2.6vw,1.75rem)] py-3.5 font-heading text-[clamp(0.906rem,1.6vw,1rem)] font-semibold text-teal-dark transition-all duration-[220ms] ease-premium hover:-translate-y-[3px] hover:bg-navy hover:border-navy hover:text-teal-bright hover:shadow-[0_14px_26px_-14px_rgba(31,92,82,.55)]"
+              onClick={() => selectLanguage(lang)}
+              className="cursor-pointer rounded-full bg-white border-[1.5px] border-teal px-[clamp(1.25rem,2.6vw,1.75rem)] py-3.5 font-heading text-[clamp(0.906rem,1.6vw,1rem)] font-semibold text-teal-dark transition-all duration-[220ms] ease-premium hover:-translate-y-[3px] hover:bg-navy hover:border-navy hover:text-teal-bright hover:shadow-[0_14px_26px_-14px_rgba(31,92,82,.55)] active:scale-95"
             >
               {lang}
-            </span>
+            </button>
           ))}
         </ScrollFadeIn>
 

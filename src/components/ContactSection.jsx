@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Mail, Phone, MapPin, Clock, CheckCircle2 } from 'lucide-react'
 import ScrollFadeIn from './ScrollFadeIn'
 import SectionHeading from './SectionHeading'
@@ -46,6 +46,20 @@ export default function ContactSection() {
   const [submitting, setSubmitting] = useState(false)
 
   const today = new Date().toISOString().split('T')[0]
+
+  // Language pills and service card CTAs dispatch this event instead of
+  // sharing state directly, so this form and those sections stay decoupled.
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.detail.language) setForm((prev) => ({ ...prev, language: e.detail.language }))
+      if (e.detail.interpretingType) {
+        setForm((prev) => ({ ...prev, interpretingType: e.detail.interpretingType }))
+      }
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+    }
+    window.addEventListener('prefill-booking', handler)
+    return () => window.removeEventListener('prefill-booking', handler)
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target

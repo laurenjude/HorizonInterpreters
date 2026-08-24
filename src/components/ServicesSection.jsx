@@ -11,6 +11,7 @@ const SERVICES = [
       'Connect with a qualified interpreter over the phone within minutes. All 47 languages, 10 minute minimum. Ideal for quick consultations and client calls.',
     price: '£0.55',
     unit: '/min',
+    interpretingType: 'Telephone',
   },
   {
     icon: Video,
@@ -19,6 +20,7 @@ const SERVICES = [
       'Face to face interpreting over video call using Microsoft Teams. See your interpreter in real time for more personal, nuanced communication.',
     price: '£1.10',
     unit: '/min',
+    interpretingType: 'Video',
   },
   {
     icon: Users,
@@ -27,8 +29,14 @@ const SERVICES = [
       'An interpreter physically present at your meeting, court hearing, or appointment across Cardiff, Newport, Bristol, Swansea, London, and Birmingham.',
     price: '£40',
     unit: '/hour',
+    // matches the "Face to face" option value in ContactSection's dropdown exactly
+    interpretingType: 'Face to face',
   },
 ]
+
+function selectInterpretingType(interpretingType) {
+  window.dispatchEvent(new CustomEvent('prefill-booking', { detail: { interpretingType } }))
+}
 
 export default function ServicesSection() {
   return (
@@ -61,9 +69,14 @@ export default function ServicesSection() {
                       From {service.price}
                       <span className="text-sm font-normal text-[#8B9AA2]">{service.unit}</span>
                     </p>
-                    <span className="grid place-items-center w-[2.125rem] h-[2.125rem] shrink-0 rounded-full bg-teal-light text-teal-dark transition-all duration-[260ms] ease-premium group-hover:translate-x-1 group-hover:bg-teal group-hover:text-white">
+                    <button
+                      type="button"
+                      onClick={() => selectInterpretingType(service.interpretingType)}
+                      aria-label={`Book ${service.title}`}
+                      className="grid place-items-center w-[2.125rem] h-[2.125rem] shrink-0 rounded-full bg-teal-light text-teal-dark transition-all duration-[260ms] ease-premium group-hover:translate-x-1 group-hover:bg-teal group-hover:text-white cursor-pointer active:scale-95"
+                    >
                       <ArrowRight size={15} />
-                    </span>
+                    </button>
                   </div>
                 </PremiumCard>
               </ScrollFadeIn>
