@@ -35,7 +35,10 @@ const SERVICES = [
 ]
 
 function selectInterpretingType(interpretingType) {
-  window.dispatchEvent(new CustomEvent('prefill-booking', { detail: { interpretingType } }))
+  // small delay so the tap/click resolves on mobile before the scroll+dispatch fires
+  setTimeout(() => {
+    window.dispatchEvent(new CustomEvent('prefill-booking', { detail: { interpretingType } }))
+  }, 100)
 }
 
 export default function ServicesSection() {
@@ -73,7 +76,7 @@ export default function ServicesSection() {
                       type="button"
                       onClick={() => selectInterpretingType(service.interpretingType)}
                       aria-label={`Book ${service.title}`}
-                      className="grid place-items-center w-[2.125rem] h-[2.125rem] shrink-0 rounded-full bg-teal-light text-teal-dark transition-all duration-[260ms] ease-premium group-hover:translate-x-1 group-hover:bg-teal group-hover:text-white cursor-pointer active:scale-95"
+                      className="touch-manipulation grid place-items-center w-[2.125rem] h-[2.125rem] shrink-0 rounded-full bg-teal-light text-teal-dark transition-all duration-[260ms] ease-premium group-hover:translate-x-1 group-hover:bg-teal group-hover:text-white cursor-pointer active:scale-95"
                     >
                       <ArrowRight size={15} />
                     </button>

@@ -55,7 +55,13 @@ export default function ContactSection() {
       if (e.detail.interpretingType) {
         setForm((prev) => ({ ...prev, interpretingType: e.detail.interpretingType }))
       }
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+      // scrollIntoView is unreliable on mobile Safari; a manual offset scroll
+      // is more consistent there and also clears the fixed navbar (-80px)
+      const element = document.getElementById('contact')
+      if (element) {
+        const offset = element.getBoundingClientRect().top + window.scrollY - 80
+        window.scrollTo({ top: offset, behavior: 'smooth' })
+      }
     }
     window.addEventListener('prefill-booking', handler)
     return () => window.removeEventListener('prefill-booking', handler)

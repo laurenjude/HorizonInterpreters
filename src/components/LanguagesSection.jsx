@@ -8,7 +8,10 @@ const rowA = additionalLanguages.slice(0, half)
 const rowB = additionalLanguages.slice(half)
 
 function selectLanguage(language) {
-  window.dispatchEvent(new CustomEvent('prefill-booking', { detail: { language } }))
+  // small delay so the tap/click resolves on mobile before the scroll+dispatch fires
+  setTimeout(() => {
+    window.dispatchEvent(new CustomEvent('prefill-booking', { detail: { language } }))
+  }, 100)
 }
 
 function MarqueeRow({ items, animation }) {
@@ -21,7 +24,7 @@ function MarqueeRow({ items, animation }) {
           type="button"
           key={`${lang}-${i}`}
           onClick={() => selectLanguage(lang)}
-          className="whitespace-nowrap rounded-full bg-white border border-[#DDEAE6] px-[1.1875rem] py-2.5 text-[0.906rem] text-[#4A5A64] cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:border-teal hover:text-teal-dark active:scale-95"
+          className="touch-manipulation whitespace-nowrap rounded-full bg-white border border-[#DDEAE6] px-[1.1875rem] py-2.5 text-[0.906rem] text-[#4A5A64] cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:border-teal hover:text-teal-dark active:scale-95"
         >
           {lang}
         </button>
@@ -63,7 +66,7 @@ export default function LanguagesSection() {
               type="button"
               key={lang}
               onClick={() => selectLanguage(lang)}
-              className="cursor-pointer rounded-full bg-white border-[1.5px] border-teal px-[clamp(1.25rem,2.6vw,1.75rem)] py-3.5 font-heading text-[clamp(0.906rem,1.6vw,1rem)] font-semibold text-teal-dark transition-all duration-[220ms] ease-premium hover:-translate-y-[3px] hover:bg-navy hover:border-navy hover:text-teal-bright hover:shadow-[0_14px_26px_-14px_rgba(31,92,82,.55)] active:scale-95"
+              className="touch-manipulation cursor-pointer rounded-full bg-white border-[1.5px] border-teal px-[clamp(1.25rem,2.6vw,1.75rem)] py-3.5 font-heading text-[clamp(0.906rem,1.6vw,1rem)] font-semibold text-teal-dark transition-all duration-[220ms] ease-premium hover:-translate-y-[3px] hover:bg-navy hover:border-navy hover:text-teal-bright hover:shadow-[0_14px_26px_-14px_rgba(31,92,82,.55)] active:scale-95"
             >
               {lang}
             </button>
