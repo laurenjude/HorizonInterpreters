@@ -11,7 +11,7 @@ const QUICK_LINKS = [
 
 const CONTACT = [
   { icon: Mail, value: 'info@horizoninterpreters.co.uk', href: 'mailto:info@horizoninterpreters.co.uk' },
-  { icon: Phone, value: '0800 123 4567', href: 'tel:08001234567' },
+  { icon: Phone, value: '+44 7448 220738', href: 'tel:+447448220738' },
   { icon: MapPin, value: 'United Kingdom, nationwide' },
 ]
 

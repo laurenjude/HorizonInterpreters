@@ -113,8 +113,8 @@ export default function Navbar() {
             >
               Book an Interpreter
             </a>
-            <a href="tel:08001234567" className="px-4 py-4 text-center text-[0.938rem] text-text-light">
-              or call 0800 123 4567
+            <a href="tel:+447448220738" className="px-4 py-4 text-center text-[0.938rem] text-text-light">
+              or call +44 7448 220738
             </a>
           </div>
         </div>
