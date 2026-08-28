@@ -57,9 +57,9 @@ export default function DynamicHeroText() {
       </p>
 
       <h1 className="font-heading text-display font-bold text-navy text-balance mb-3">
-        Bridging Languages,
+        Bridging Language Gaps,
         <br />
-        and Connecting{' '}
+        Connecting{' '}
         <span className="relative inline-block text-teal-mid">
           <RotatingWord word={current.people} />
           <span className="text-teal">.</span>
