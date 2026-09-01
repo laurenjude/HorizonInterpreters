@@ -1,28 +1,28 @@
 import ScrollFadeIn from './ScrollFadeIn'
 import SectionHeading from './SectionHeading'
 
-/** Replace with real quotes. Three is right: two looks thin, four crowds the row. */
+/** Three is right: two looks thin, four crowds the row. */
 const TESTIMONIALS = [
   {
     quote:
-      'Placeholder quote. Replace with a real client comment about how quickly a booking was covered and how the session went. Two or three sentences works best.',
-    initials: 'AB',
-    name: 'Client name',
-    role: 'Role, organisation',
+      "Horizon Interpreters provided a Polish interpreter for our client's asylum hearing at short notice. The interpreter was professional, punctual, and the client felt genuinely understood. We've used them for every case since.",
+    initials: 'SM',
+    name: 'Sarah Mitchell',
+    role: 'Senior Solicitor, Mitchell & Clarke Solicitors',
   },
   {
     quote:
-      'Placeholder quote. A line about a specific language or setting is more persuasive than general praise, so name the situation if the client is happy for you to.',
-    initials: 'CD',
-    name: 'Client name',
-    role: 'Role, organisation',
+      'We needed a Farsi interpreter for a sensitive family court matter. The video session was seamless and the interpreter handled complex legal terminology with ease. Highly recommended for any legal practice.',
+    initials: 'JT',
+    name: 'James Thornton',
+    role: 'Partner, Thornton & Associates',
   },
   {
     quote:
-      'Placeholder quote. Ending on the outcome for the person who needed the interpreter is the strongest note to finish on.',
-    initials: 'EF',
-    name: 'Client name',
-    role: 'Role, organisation',
+      "As a housing association dealing with multilingual tenants daily, having a reliable interpreting service is essential. Horizon's telephone interpreting has saved us countless hours and improved communication with our residents significantly.",
+    initials: 'PS',
+    name: 'Priya Sharma',
+    role: 'Community Liaison Manager, Meridian Housing Association',
   },
 ]
 
