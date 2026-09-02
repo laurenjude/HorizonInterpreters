@@ -7,21 +7,21 @@ import useCountUp from '../hooks/useCountUp'
 const PLANS = [
   {
     name: 'Telephone',
-    amount: 0.55,
+    amount: 1.5,
     decimals: 2,
     unit: 'per minute',
     features: [
       'All 47 languages available',
       '10 minute minimum',
-      'Standard rate £0.65/min',
-      'Introductory £0.55/min for first 100 mins',
+      'Standard rate £1.50/min',
+      'Introductory £1.50/min for first 100 mins',
       'Instant connection',
     ],
     highlighted: false,
   },
   {
     name: 'Video',
-    amount: 1.1,
+    amount: 2,
     decimals: 2,
     unit: 'per minute',
     features: [
@@ -35,8 +35,8 @@ const PLANS = [
   },
   {
     name: 'Face to Face',
-    amount: 40,
-    decimals: 0,
+    amount: 50,
+    decimals: 2,
     unit: 'per hour',
     features: [
       'Cardiff, Newport, Bristol, Swansea',

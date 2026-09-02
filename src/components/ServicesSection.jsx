@@ -9,7 +9,7 @@ const SERVICES = [
     title: 'Telephone Interpreting',
     description:
       'Connect with a qualified interpreter over the phone within minutes. All 47 languages, 10 minute minimum. Ideal for quick consultations and client calls.',
-    price: '£0.55',
+    price: '£1.50',
     unit: '/min',
     interpretingType: 'Telephone',
   },
@@ -18,7 +18,7 @@ const SERVICES = [
     title: 'Video Interpreting',
     description:
       'Face to face interpreting over video call using Microsoft Teams. See your interpreter in real time for more personal, nuanced communication.',
-    price: '£1.10',
+    price: '£2.00',
     unit: '/min',
     interpretingType: 'Video',
   },
@@ -27,7 +27,7 @@ const SERVICES = [
     title: 'Face to Face Interpreting',
     description:
       'An interpreter physically present at your meeting, court hearing, or appointment across Cardiff, Newport, Bristol, Swansea, London, and Birmingham.',
-    price: '£40',
+    price: '£50.00',
     unit: '/hour',
     // matches the "Face to face" option value in ContactSection's dropdown exactly
     interpretingType: 'Face to face',
