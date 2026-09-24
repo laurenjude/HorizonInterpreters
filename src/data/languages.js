@@ -5,6 +5,7 @@ export const specialistLanguages = [
   "Luganda (Kiganda)",
   "Kinyamulenge",
   "French",
+  "Lingala",
 ];
 
 export const additionalLanguages = [
@@ -44,7 +45,6 @@ export const additionalLanguages = [
   "German",
   "British Sign Language (BSL)",
   "Welsh",
-  "Lingala",
   "Oromo",
   "Yoruba",
   "Igbo",
