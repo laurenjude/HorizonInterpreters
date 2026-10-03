@@ -68,7 +68,7 @@ export default function Footer() {
             href="https://automationprimeafrica.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[0.75rem] text-teal transition-colors hover:text-teal-bright"
+            className="inline-block py-2 text-[0.75rem] text-teal transition-colors hover:text-teal-bright"
           >
             Powered by Automation Prime Africa
           </a>
