@@ -44,6 +44,7 @@ export default function ContactSection() {
   const [form, setForm] = useState(initialFormState)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -75,22 +76,30 @@ export default function ContactSection() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setSubmitting(true)
+    setSubmitError(false)
 
     const webhookUrl = import.meta.env.VITE_WEBHOOK_BOOKING
+    let ok = false
+
     if (webhookUrl) {
       try {
-        await fetch(webhookUrl, {
+        const res = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
         })
+        ok = res.ok
       } catch {
-        // the booking is still logged for follow up, so show success either way
+        ok = false
       }
     }
 
     setSubmitting(false)
-    setSubmitted(true)
+    if (ok) {
+      setSubmitted(true)
+    } else {
+      setSubmitError(true)
+    }
   }
 
   return (
@@ -233,6 +242,15 @@ export default function ContactSection() {
                 >
                   {submitting ? 'Sending...' : 'Request Booking'}
                 </MagneticButton>
+
+                {submitError && (
+                  <p className="mt-4 rounded-xl border border-red-400/30 bg-red-900/20 px-4 py-3 text-[0.813rem] leading-relaxed text-red-300">
+                    Your request could not be sent. Please call{' '}
+                    <a href="tel:+447448220738" className="underline">+44 7448 220738</a> or email{' '}
+                    <a href="mailto:bookings@horizoninterpreters.uk" className="underline">bookings@horizoninterpreters.uk</a>{' '}
+                    to book directly.
+                  </p>
+                )}
               </form>
             )}
           </ScrollFadeIn>
