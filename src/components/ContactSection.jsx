@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Mail, Phone, MapPin, Clock, CheckCircle2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, CheckCircle2, Copy, Download } from 'lucide-react'
 import ScrollFadeIn from './ScrollFadeIn'
 import SectionHeading from './SectionHeading'
 import MagneticButton from './MagneticButton'
@@ -23,7 +23,7 @@ const INTERPRETING_TYPES = ['Telephone', 'Video', 'Face to face']
 
 const CONTACT_ROWS = [
   { icon: Mail, label: 'EMAIL', value: 'bookings@horizoninterpreters.uk', href: 'mailto:bookings@horizoninterpreters.uk' },
-  { icon: Phone, label: 'PHONE', value: '+44 7448 220738', href: 'tel:+447448220738' },
+  { icon: Phone, label: 'PHONE', value: '029 2271 5961', href: 'tel:+442922715961', copy: true },
   { icon: MapPin, label: 'COVERAGE', value: 'United Kingdom, serving clients nationwide' },
   { icon: Clock, label: 'OPERATING HOURS', value: '7 days a week, 8:00 AM to 8:00 PM' },
 ]
@@ -45,6 +45,7 @@ export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -246,7 +247,7 @@ export default function ContactSection() {
                 {submitError && (
                   <p className="mt-4 rounded-xl border border-red-400/30 bg-red-900/20 px-4 py-3 text-[0.813rem] leading-relaxed text-red-300">
                     Your request could not be sent. Please call{' '}
-                    <a href="tel:+447448220738" className="underline">+44 7448 220738</a> or email{' '}
+                    <a href="tel:+442922715961" aria-label="Call Horizon Interpreters" className="underline">029 2271 5961</a> or email{' '}
                     <a href="mailto:bookings@horizoninterpreters.uk" className="underline">bookings@horizoninterpreters.uk</a>{' '}
                     to book directly.
                   </p>
@@ -260,28 +261,57 @@ export default function ContactSection() {
               Get in touch
             </h3>
 
-            <div className="grid gap-2 mb-6">
-              {CONTACT_ROWS.map(({ icon: Icon, label, value, href }) => {
-                const Tag = href ? 'a' : 'div'
+            <div className="grid gap-2 mb-4">
+              {CONTACT_ROWS.map(({ icon: Icon, label, value, href, copy: copyable }) => {
+                const Tag = href && !copyable ? 'a' : 'div'
                 return (
                   <Tag
                     key={label}
-                    {...(href ? { href } : {})}
+                    {...(href && !copyable ? { href, 'aria-label': `${label}: ${value}` } : {})}
                     className={`flex items-start gap-4 rounded-2xl border border-white/[.07] p-[1.0625rem] transition-all duration-[220ms] ${
-                      href ? 'hover:bg-teal/[.08] hover:border-teal/35' : ''
+                      href && !copyable ? 'hover:bg-teal/[.08] hover:border-teal/35' : ''
                     }`}
                   >
                     <Icon size={20} className="text-teal shrink-0 mt-0.5" strokeWidth={1.8} />
-                    <span className="block min-w-0">
+                    <span className="block min-w-0 flex-1">
                       <span className="block text-[0.719rem] tracking-[0.18em] text-[#7C8F98]">{label}</span>
-                      <span className="block mt-1.5 font-heading text-[clamp(0.875rem,1.6vw,1rem)] font-medium text-white break-words">
-                        {value}
-                      </span>
+                      {copyable ? (
+                        <a
+                          href={href}
+                          aria-label="Call Horizon Interpreters"
+                          className="block mt-1.5 font-heading text-[clamp(0.875rem,1.6vw,1rem)] font-medium text-white hover:text-teal transition-colors break-words"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <span className="block mt-1.5 font-heading text-[clamp(0.875rem,1.6vw,1rem)] font-medium text-white break-words">
+                          {value}
+                        </span>
+                      )}
                     </span>
+                    {copyable && (
+                      <button
+                        type="button"
+                        onClick={() => { navigator.clipboard.writeText('+442922715961'); setCopied(true); setTimeout(() => setCopied(false), 2000) }}
+                        aria-label="Copy phone number"
+                        className="shrink-0 self-center rounded-lg p-1.5 text-[#7C8F98] hover:text-teal hover:bg-teal/[.08] transition-all"
+                      >
+                        {copied ? <span className="text-[0.719rem] font-medium text-teal">Copied</span> : <Copy size={16} />}
+                      </button>
+                    )}
                   </Tag>
                 )
               })}
             </div>
+
+            <a
+              href="/horizon-interpreters.vcf"
+              download
+              className="inline-flex items-center gap-2 rounded-xl border border-white/[.07] px-4 py-2.5 mb-5 text-[0.813rem] text-[#8A98A0] hover:text-teal hover:border-teal/35 transition-all"
+            >
+              <Download size={15} className="text-teal shrink-0" strokeWidth={1.8} />
+              Save contact
+            </a>
 
             <div className="rounded-2xl bg-teal/10 border border-teal/[.28] p-5">
               <p className="text-[0.938rem] leading-[1.6] text-[#C6D2D8]">
