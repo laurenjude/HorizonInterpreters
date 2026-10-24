@@ -12,7 +12,7 @@ const QUICK_LINKS = [
 
 const CONTACT = [
   { icon: Mail, value: 'bookings@horizoninterpreters.uk', href: 'mailto:bookings@horizoninterpreters.uk' },
-  { icon: Phone, value: '029 2271 5961', href: 'tel:+442922715961', copy: true },
+  { icon: Phone, value: '+44 29 2271 5961', href: 'tel:+442922715961', copy: true },
   { icon: MapPin, value: 'United Kingdom, nationwide' },
 ]
 

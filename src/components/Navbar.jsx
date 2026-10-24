@@ -114,7 +114,7 @@ export default function Navbar() {
               Book an Interpreter
             </a>
             <a href="tel:+442922715961" aria-label="Call Horizon Interpreters" className="px-4 py-4 text-center text-[0.938rem] text-text-light">
-              or call 029 2271 5961
+              or call +44 29 2271 5961
             </a>
           </div>
         </div>

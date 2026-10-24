@@ -23,7 +23,7 @@ const INTERPRETING_TYPES = ['Telephone', 'Video', 'Face to face']
 
 const CONTACT_ROWS = [
   { icon: Mail, label: 'EMAIL', value: 'bookings@horizoninterpreters.uk', href: 'mailto:bookings@horizoninterpreters.uk' },
-  { icon: Phone, label: 'PHONE', value: '029 2271 5961', href: 'tel:+442922715961', copy: true },
+  { icon: Phone, label: 'PHONE', value: '+44 29 2271 5961', href: 'tel:+442922715961', copy: true },
   { icon: MapPin, label: 'COVERAGE', value: 'United Kingdom, serving clients nationwide' },
   { icon: Clock, label: 'OPERATING HOURS', value: '7 days a week, 8:00 AM to 8:00 PM' },
 ]
